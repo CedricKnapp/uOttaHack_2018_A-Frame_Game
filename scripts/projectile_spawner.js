@@ -272,13 +272,11 @@ AFRAME.registerComponent('shoot', {
   
         // Communicate the shoot.
         el.emit('shoot', bulletEntity);
-        console.log('test');
   
         // Set cooldown period.
         this.coolingDown = true;
         setTimeout(function () {
           self.coolingDown = false;
-          console.log('cooldown done');
         }, 500);
       };
     })()

@@ -29,7 +29,7 @@
   <!-- This right-hand-side div holds the typical view including A-Frame scene (note: embedded). -->
   <div id="hmd" style="position:absolute; right:0; bottom:0; top:0; left:50%; width:50%; border: 8px solid black; overflow:hidden">
 
-    <a-scene physics decals="maxDecals: 30; src: #bulletDecal; size: 0.3">
+    <a-scene physics>
         <a-assets>
                 <a-asset-image src="assets/images/enemy_emissive0.jpg" crossOrigin="anonymous"> </a-asset-image>
                 <a-asset-image src="assets/images/enemy_emissive1.jpg" crossOrigin="anonymous"></a-asset-image>
@@ -76,7 +76,7 @@
                 <audio id="enemy1shoot" src="assets/sounds/enemy1shoot.ogg"  crossorigin="anonymous"></audio>
                 <audio id="enemy2shoot" src="assets/sounds/enemy2shoot.ogg"  crossorigin="anonymous"></audio>
         <audio id="enemy3shoot" src="assets/sounds/enemy3shoot.ogg" crossorigin="anonymous"></audio>
-            <a-mixin id="cube" geometry="primitive: box; width: 0.33; height: 0.33; depth: 0.33"
+            <a-mixin id="cube" geometry="primitive: box; width: 0.3; height: 1.5; depth: 0.3"
 
             hoverable grabbable stretchable draggable
 
@@ -97,18 +97,26 @@
                          colliderState:"></a-mixin>
         </a-assets>
         <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
-        <a-entity class="cube" mixin="cube" position="0 2 0" material="color: red"></a-entity>
+        <a-entity class="cube" mixin="cube" position="0 6 0" material="color: red"></a-entity>
+        <a-entity class="cube" mixin="cube" position="1 6 0" material="color: red"></a-entity>
+        <a-entity class="cube" mixin="cube" position="0 6 1" material="color: red"></a-entity>
+        <a-entity class="cube" mixin="cube" position="1 6 1" material="color: red"></a-entity>
+        <a-entity class="cube" mixin="cube" position="1.5 6 0.5" material="color: red"></a-entity>
+        <a-entity class="cube" mixin="cube" position="0.5 6 1.5" material="color: red"></a-entity>
     
 
-      <a-entity environment="preset: forest; numDressing: 500"></a-entity>
-      <a-box dynamic-body="shape: box; mass: 1" position="-1 1.6 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-plane static-body position="0 0 0" rotation="-90 0 0" width="15" height="15" material="opacity: 0"></a-plane>
+      <a-entity environment="preset: forest; numDressing: 500" position="0 3.63 0" scale="0.3 0.3 0.3"></a-entity>
+      <a-plane static-body position="0 3.63 0" rotation="-90 0 0" width="15" height="15" material="opacity: 0"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
-      <a-entity position="0 1.6 0" camera wasd-controls spectator follow-mouse active="true" shoot="direction: 0 0 -1">
+      <a-entity scale="0.3 0.3 0.3" position="0 1.8 0" camera wasd-controls spectator follow-mouse active="true" shoot="direction: 0 0 -1">
             <a-box></a-box>
       </a-entity>
-      <a-entity position="0 1 0" progressive-controls="touchMixin: mytouch; override: true">
-        <a-entity id="start_enemy" camera look-controls collision-helper="radius: 0.65"></a-entity>
+      <a-entity position="0 3 0" progressive-controls="touchMixin: mytouch; override: true">
+        <a-entity id="start_enemy" camera look-controls geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.1" collision-helper="radius: 0.65"></a-entity>
+        <a-entity class="right-controller">
+        </a-entity>
+        <a-entity class="left-controller">
+        </a-entity>
       </a-entity>
 
     </a-scene>
