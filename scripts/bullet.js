@@ -1,3 +1,4 @@
+var enemyHealth = 10;
 /* globals AFRAME THREE */
 AFRAME.registerComponent('collision-helper', {
   schema: {
@@ -56,6 +57,8 @@ AFRAME.registerComponent('bullet', {
 
   init: function () {
     this.startEnemy = document.getElementById('start_enemy');
+    this.leftHand = document.getElementById('lefthand');
+    this.rightHand = document.getElementById('righthand');
     this.backgroundEl = document.getElementById('border');
     this.bullet = BULLETS[this.data.name];
     this.bullet.definition.init.call(this);
@@ -148,11 +151,27 @@ AFRAME.registerComponent('bullet', {
         if (this.data.owner === 'player') {
           // Detect collision with the start game enemy
             var enemy = this.startEnemy;
+            var enemyLeft = this.leftHand;
+            var enemyRight = this.rightHand;
             var helper = enemy.getAttribute('collision-helper');
             var radius = helper.radius;
             if (newBulletPosition.distanceTo(enemy.object3D.position) < radius + bulletRadius) {
+              enemyHealth -= 1;
+              this.resetBullet();
+              console.log(enemyHealth);
+              if (enemyHealth == 0)
+                alert("You win!");
               //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
-              enemy.emit('hit');
+              return;
+            }
+            if (newBulletPosition.distanceTo(leftHand.object3D.position) < 1 + bulletRadius) {
+              this.resetBullet();
+              //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
+              return;
+            }
+            if (newBulletPosition.distanceTo(rightHand.object3D.position) < 1 + bulletRadius) {
+              this.resetBullet();
+              //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
               return;
             }
         }
