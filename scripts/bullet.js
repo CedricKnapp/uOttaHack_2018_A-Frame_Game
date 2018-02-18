@@ -57,8 +57,8 @@ AFRAME.registerComponent('bullet', {
 
   init: function () {
     this.startEnemy = document.getElementById('start_enemy');
-    this.leftHand = document.getElementById('lefthand');
-    this.rightHand = document.getElementById('righthand');
+    this.leftHand = document.getElementById('leftHand');
+    this.rightHand = document.getElementById('rightHand');
     this.backgroundEl = document.getElementById('border');
     this.bullet = BULLETS[this.data.name];
     this.bullet.definition.init.call(this);
@@ -129,7 +129,6 @@ AFRAME.registerComponent('bullet', {
       // Set new position
       this.temps.direction.copy(this.direction);
       var newBulletPosition = this.temps.position.add(this.temps.direction.multiplyScalar(this.speed));
-      console.log(newBulletPosition);
       this.el.setAttribute('position', newBulletPosition);
 
       // Check if the bullet is lost in the sky
@@ -143,38 +142,32 @@ AFRAME.registerComponent('bullet', {
 
       var bulletRadius = collisionHelper.radius;
 
-      // Detect collision depending on the owner
-      if (this.data.owner === 'player') {
-        // megahack
 
-        // Detect collision against enemies
-        if (this.data.owner === 'player') {
-          // Detect collision with the start game enemy
-            var enemy = this.startEnemy;
-            var enemyLeft = this.leftHand;
-            var enemyRight = this.rightHand;
-            var helper = enemy.getAttribute('collision-helper');
-            var radius = helper.radius;
-            if (newBulletPosition.distanceTo(enemy.object3D.position) < radius + bulletRadius) {
-              enemyHealth -= 1;
-              this.resetBullet();
-              console.log(enemyHealth);
-              if (enemyHealth == 0)
-                alert("You win!");
-              //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
-              return;
-            }
-            if (newBulletPosition.distanceTo(leftHand.object3D.position) < 1 + bulletRadius) {
-              this.resetBullet();
-              //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
-              return;
-            }
-            if (newBulletPosition.distanceTo(rightHand.object3D.position) < 1 + bulletRadius) {
-              this.resetBullet();
-              //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
-              return;
-            }
-        }
+      var enemy = this.startEnemy;
+      var enemyLeft = this.leftHand;
+      var enemyRight = this.rightHand;
+      var helper = enemy.getAttribute('collision-helper');
+      var radius = helper.radius;
+      console.log(enemy.object3D.position.x + " " + enemy.object3D.position.y + " " + enemy.object3D.position.z + " ");
+      if (newBulletPosition.distanceTo(enemy.object3D.position) < radius + bulletRadius) {
+        enemyHealth -= 1;
+        this.resetBullet();
+        console.log(enemyHealth);
+        if (enemyHealth == 0)
+          alert("You win!");
+        //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
+        return;
+      }
+      if (newBulletPosition.distanceTo(enemyLeft.object3D.position) < 0.1 + bulletRadius) {
+        this.resetBullet();
+        //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
+        return;
+      }
+      if (newBulletPosition.distanceTo(enemyRight.object3D.position) < 0.1 + bulletRadius) {
+        this.resetBullet();
+        //this.el.sceneEl.systems.explosion.createExplosion('enemy', this.el.getAttribute('position'), '#ffb911', 0.5, this.direction, 'enemy_start');
+        return;
+
       }
     };
   })()

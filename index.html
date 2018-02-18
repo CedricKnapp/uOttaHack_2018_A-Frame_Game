@@ -108,14 +108,14 @@
       <a-entity environment="preset: forest; numDressing: 500" position="0 3.63 0" scale="0.3 0.3 0.3"></a-entity>
       <a-plane static-body position="0 3.63 0" rotation="-90 0 0" width="15" height="15" material="opacity: 0"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
-      <a-entity scale="0.3 0.3 0.3" position="0 1.8 0" camera wasd-controls spectator follow-mouse active="true" shoot="direction: 0 0 -1">
+      <a-camera scale="0.3 0.3 0.3" position="0 4.5 0" user-height=0 look-controls-enabled="false" spectator follow-mouse active="true" shoot="direction: 0 0 -1">
             <a-box></a-box>
-      </a-entity>
-      <a-entity position="0 3 0" progressive-controls="touchMixin: mytouch; override: true">
-        <a-entity id="start_enemy" camera look-controls geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.1" collision-helper="radius: 0.65"></a-entity>
-        <a-entity class="right-controller">
+      </a-camera>
+      <a-entity progressive-controls="touchMixin: mytouch; override: true">
+        <a-entity id="start_enemy" position="0 3 0" camera look-controls geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.1" collision-helper="radius: 0.05"></a-entity>
+        <a-entity id="rightHand" position="0 3 0" class="right-controller">
         </a-entity>
-        <a-entity class="left-controller">
+        <a-entity id="leftHand" position="0 3 0" class="left-controller">
         </a-entity>
       </a-entity>
 
